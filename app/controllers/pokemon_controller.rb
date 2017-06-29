@@ -20,7 +20,7 @@ gif_body = JSON.parse(gif.body)
      id: pokemon_body["id"],
      types: pokemon_body["types"],
      weight: pokemon_body["weight"],
-     gif:   gif_body["data"]
+     gif:  gif_body["data"][0]["url"] 
   }
 end
 
