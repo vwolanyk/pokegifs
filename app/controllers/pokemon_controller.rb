@@ -2,13 +2,27 @@ class PokemonController < ApplicationController
 
 def show
 
+
 pokemon = Typhoeus.get("http://pokeapi.co/api/v2/pokemon/#{params[:id]}/", followlocation: true)
-body = JSON.parse(pokemon.body)
-body["name"]
+pokemon_body = JSON.parse(pokemon.body)
+
+if pokemon.code == 404
+  render :error
+else
+gif = Typhoeus.get("http://api.giphy.com/v1/gifs/search?q=#{pokemon_body["name"]}&api_key=#{ENV['GIPHY_KEY']}&limit=1", followlocation: true)
+gif_body = JSON.parse(gif.body)
+
+
+
+
    render json: {
-    "message" => "ok"
+     name: pokemon_body["name"],
+     id: pokemon_body["id"],
+     types: pokemon_body["types"],
+     weight: pokemon_body["weight"],
+     gif:   gif_body["data"]
   }
 end
 
-
+end
 end
