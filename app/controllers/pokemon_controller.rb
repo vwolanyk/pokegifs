@@ -18,9 +18,9 @@ gif_body = JSON.parse(gif.body)
    render json: {
      name: pokemon_body["name"],
      id: pokemon_body["id"],
-     types: pokemon_body["types"],
+     types: pokemon_body["types"][0]["type"]["name"],
      weight: pokemon_body["weight"],
-     gif:  gif_body["data"][0]["url"] 
+     gif:  gif_body["data"][0]["url"]
   }
 end
 
